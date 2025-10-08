@@ -3,6 +3,27 @@ body{
     margin-right: 5%;
 }
 
+#inicio div{
+    display: flex;
+    margin-left: 70%;
+}
+
+#inicio div a{
+    margin-top: 15px;
+    font-weight: 400;
+    margin-left: 13px;
+    font-size: 170%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    transition: all 0.5s;
+    color: #000000;
+    text-decoration: none;
+}
+
+#inicio div a:hover {
+    color: #008cff;
+    cursor: pointer;
+ }
+
 
 #encabezado{
     background-color: #ffff;

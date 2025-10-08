@@ -7,6 +7,13 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
+
+<header id ="inicio">
+    <div>
+    <a href= "registros.php">Registrate</a>
+    <a href= "inicio.php">Iniciar sesion</a>
+    </div>
+</header>
     <header id="encabezado">
         <h2>Bienvenido a MyEmotions</h2>
     </header>
