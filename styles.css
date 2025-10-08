@@ -1,0 +1,146 @@
+body{
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+
+#encabezado{
+    background-color: #ffff;
+    background-size: cover;
+    background-position-y:70%; 
+    height:400px;
+    opacity: 95%;
+    transform: translateY(2.5%);
+    z-index: 100;
+}
+
+#encabezado h2{
+      font-weight: 300;
+      transform: translateY(190px);
+      margin-left: 10%;
+      font-size: 210%;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#hr{
+   margin-top: 1%;
+}
+
+#queEmocion{
+    margin-left: 27%;
+    font-size: 180%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 310;
+    padding: 2%;
+}
+
+.nombreEmo{
+    font-size: 150%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 310;
+    margin-left: 20px;
+}
+
+#botones{
+    display: flex;
+    margin-left: 15%;
+    padding: 2%;
+}
+
+
+#enojo{
+    height: 120px;
+    width: 120px;
+    background-color: #D05353;
+    border-radius: 60px;
+    border: #ffff;
+    margin-right: 15px;
+    transition: all 0.5s;
+}
+
+#enojo:hover {
+    background-color: #c32323;
+    box-shadow: 0 0 20px #0000;
+    transform: scale(1.1);
+ }
+
+#feliz{
+    height: 120px;
+    width: 120px;
+    background-color: #F9E784;
+    border-radius: 60px;
+    border: #ffff;
+    margin-right: 15px;
+    transition: all 0.5s;
+}
+
+#feliz:hover {
+    background-color: #e3d239;
+    box-shadow: 0 0 20px #0000;
+    transform: scale(1.1);
+ }
+
+
+#neutral{
+    height: 120px;
+    width: 120px;
+    background-color: #E58F65;
+    border-radius: 60px;
+    border: #ffff;
+    margin-right: 15px;
+    transition: all 0.5s;
+}
+
+#neutral:hover {
+    background-color: #ec8116;
+    box-shadow: 0 0 20px #0000;
+    transform: scale(1.1);
+ }
+
+#aburrido{
+    height: 120px;
+    width: 120px;
+    background-color: #A9C46C;
+    border-radius: 60px;
+    border: #ffff;
+    margin-right: 15px;
+    transition: all 0.5s;
+}
+
+#aburrido:hover {
+    background-color: #5bb359;
+    box-shadow: 0 0 20px #0000;
+    transform: scale(1.1);
+ }
+
+#triste{
+    height: 120px;
+    width: 120px;
+    background-color: #C8D9E6;
+    border-radius: 60px;
+    border: #ffff;
+    margin-right: 15px;
+    transition: all 0.5s;
+}
+
+#triste:hover {
+    background-color: #3390db;
+    box-shadow: 0 0 20px #0000;
+    transform: scale(1.1);
+ }
+
+
+#nostalgico{
+    height: 120px;
+    width: 120px;
+    background-color: #bea9f1;
+    border-radius: 60px;
+    border: #ffff;
+    transition: all 0.5s;
+}
+
+#nostalgico:hover {
+    background-color: #9b52cf;
+    box-shadow: 0 0 20px #0000;
+    transform: scale(1.1);
+ }
