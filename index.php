@@ -11,7 +11,8 @@
 <header id ="inicio">
     <div>
     <a href= "registros.php">Registrate</a>
-    <a href= "inicio.php">Iniciar sesion</a>
+    <a href= "inicio_sesion.php">Iniciar sesion</a>
+    <a href="priv.php">Privado</a>
     </div>
 </header>
     <header id="encabezado">

@@ -30,7 +30,6 @@
 
 <?php
 
-
 // Configuración de la base de datos
 $host = 'localhost';
 $dbname = 'usuarios';
@@ -65,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 //con exucute mandas un mensaje si es que todo se logro
 
 if ($stmt->execute()) {
-    echo "Se registro correctamente";
+    echo "<h2>Se registro correctamente</h2>";
 } else {
     echo "Error al intentar registrarse" . $stmt->error;
 }
