@@ -4,17 +4,12 @@ body{
     background-color: #f6f8fb;
 }
 
-#inicio div{
-    display: flex;
-    margin-left: 90%;
-}
-
-#inicio p{
+#inicio p{/*Posicionamiento de barra de navegacion*/
     margin-left: 60%;
     margin-top: 5%;
 }
 
-#inicio p a{
+#inicio p a{/*Estilos de los links de la barra de navegacion*/
     margin-top: 15px;
     font-weight: 300;
     margin-left: 40px;
@@ -31,7 +26,7 @@ body{
  }
 
 
-#encabezado{
+#encabezado{/*Estilo del encabezado*/
     background-size: cover;
     background-position-y:70%; 
     height:300px;
@@ -40,7 +35,7 @@ body{
     z-index: 100;
 }
 
-#encabezado h2{
+#encabezado h2{/*Estilo del texto del encabezado*/
       font-weight: 300;
       transform: translateY(120px);
       margin-left: 10%;
@@ -52,18 +47,11 @@ body{
    margin-top: 1%;
 }
 
-#dos_partes{
+#dos_partes{/*Propiedad del div ara poner frase a un lado de elegir emocion*/
     display: flex;
 }
- #QueEmocion{
-    font-family: "Lato", sans-serif;
-    font-weight: 300;
-    font-style: normal;
-    font-size: 170%;
-    margin-left: 30%;
- }
 
- #contenedor{
+ #contenedor{/*Estilo del contenedor principal*/
     border-radius:18px; 
     box-shadow:15px 19px 16px #0c0d1114; 
     padding:22px; 
@@ -74,13 +62,22 @@ body{
     margin-top: 5%;
  }
 
- #contenedor2{
+ #QueEmocion{/*Estilo del texto de elegir emocion*/
+   font-family: "Lato", sans-serif;
+   font-weight: 300;
+   font-style: normal;
+   font-size: 170%;
+   margin-left: 30%;
+}
+
+
+ #contenedor2{/*Estilo del contenedor de los botones de las emociones*/
     display: flex;
     margin-top: 5%;
     margin-left: 5%;
  }
 
- #contenedor3{
+ #contenedor3{/*Estilo del contenedor de los botones de las emociones segunda fila*/
     display: flex;
     margin-left: 5%;
  }
@@ -113,6 +110,7 @@ body{
   }
 
 
+  /*Estilos para cada boton de emocion*/
 
  #emojiFeli{
     font-size: 30px;
@@ -259,6 +257,7 @@ body{
  }
 
 
+ /*--Boton de enviar en elegir emociones--*/
  #enviar{
     border:1px solid #353434; 
     cursor:pointer;
@@ -279,7 +278,8 @@ body{
    border:1px solid #fbfbfb; 
 }
 
-#frase_contenedor{
+
+#frase_contenedor{/*Estilo del contenedor de la frase*/
     border-radius:10px; 
     border: 2px solid #d2aba7;
     box-shadow:15px 19px 16px #0c0d1114; 
@@ -292,7 +292,7 @@ body{
     margin-left: 3%;
 }
 
-#frase_contenedor h3{
+#frase_contenedor h3{/*Estilo de "Frase" de la frase*/
     text-align: center;
     transform: translateY(-80%);
     font-family: "Lato", sans-serif;
@@ -300,7 +300,7 @@ body{
     font-weight: 300;
 }
  
-#frase{
+#frase{/*Estilo de la frase */
     border-radius:18px; 
     box-shadow:15px 19px 16px #0c0d1114; 
     padding:25px; 
@@ -316,7 +316,7 @@ body{
 
  /*-- FOOTERS --*/
 
- .foot{
+ .foot{/*Estilo del footer*/
     background-color: #ece5e5;
     padding: 10px;
     margin-top: 60%;
@@ -326,18 +326,18 @@ body{
     font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
   }
 
-  #seccion1{
+  #seccion1{/*Estilo de la primera seccion del footer*/
     display: inline-block;
     margin-right: 30%;
     margin-left: 2%;
     text-align: left;
   }
 
-  #seccion2{
+  #seccion2{/*Estilo de la segunda seccion del footer*/
     display: flex;
   }
 
-  .espacio{
+  .espacio{/*Clase para dar espacio entre los links del footer*/
     transform: translateX(20px);
   }
 
@@ -350,7 +350,7 @@ body{
     display: inline-table;
   }
 
-  .footer_links{
+  .footer_links{/*Estilo de los links del footer*/
     text-decoration: none;
     color:#1f2d3d;
     transition: all 0.3s;

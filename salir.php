@@ -1,9 +1,9 @@
 <?php
-session_start();
+session_start();//Iniciamos la sesión
 
-$_SESSION = [];
-session_unset();
-session_destroy();
+$_SESSION = [];//Limpiamos todas las variables de sesión 
+session_unset();//Eliminamos las variables de sesión
+session_destroy();//Destruimos la sesión
 
 header("Location: inicio_sesion.php");
 exit;

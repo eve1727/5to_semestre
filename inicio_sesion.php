@@ -5,36 +5,33 @@ require_once "conexion.php";
 
 $mensaje = "";//Variable sin valor para despues utilizarla
 
-//solo se envia el formulario si es por el metodo post
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-  //Variables que recibimos del formulario
   $correo     = trim($_POST["correo"] ?? "");
   $contrasena = $_POST["contrasena"] ?? "";
 
-  // Validar que los campos no estén vacíos
+
   if ($correo === "" || $contrasena === "") {
     $mensaje = "Ingresa tu correo y tu contraseña.";
-  } else { //Hace una consulta a la base de datos para verificar si el correo existe
+  } else { //Hace una consulta a la base de datos 
                 $sql = "SELECT ID, Nombre, correo, contrasena_hash
                 FROM usuario
-                WHERE correo = ?"; //Con where nos ayuda a especificar que solo traera valores que tenga el correo que el usuario ingreso
+                WHERE correo = ?"; 
                 
                 $sentencia = $conn->prepare($sql); // Prepara la sentencia y agrega seguridad
 
 
                       if ($sentencia) {
-                      $sentencia->bind_param("s", $correo);//Esto sirve para conectar el valor que puso el usuario con el de la base de datos
+                      $sentencia->bind_param("s", $correo);//conectar el valor que puso el usuario con el de la base de datos
                       $sentencia->execute();
                       $resultado = $sentencia->get_result();//Los resultados de la consulta se guardan en esta variable
           
 
-                          if ($resultado && $resultado->num_rows === 1) {//Esto solo verifica que haiga llegado un resultado de la consulta con el correo que el usuario puso
+                          if ($resultado && $resultado->num_rows === 1) {
                             $usuario = $resultado->fetch_assoc(); 
                                  //fetch_assoc() obtiene una fila de resultados como un array asociativo para poder acceder a los datos
                               
 
-                            if ($contrasena == $usuario["contrasena_hash"]) {//Verifica que la contraseña que ingreso el usuario sea igual a la de la base de datos
+                            if ($contrasena == $usuario["contrasena_hash"]) {
                               $_SESSION["usuario_id"]     = $usuario["ID"];
                               $_SESSION["usuario_nombre"] = $usuario["Nombre"];
                               $_SESSION["usuario_correo"] = $usuario["correo"];
@@ -55,18 +52,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             }
                           } 
                         }
-
-
-// Recibir datos del formulario
-  
-//Esto solo sirve para verificar si es que se concecto o no a la base
-
-//   if ($conn->connect_error) {
-//       die("Conexión fallida: " . $conn->connect_error);
-//   }else{
-//     echo "Conexión lograda";
-//   }
-
 
 ?>
 <!DOCTYPE html>
@@ -121,6 +106,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
   </div>
 </body>
+
+
 <footer>
   <div class="foot">
   <div id="seccion2">

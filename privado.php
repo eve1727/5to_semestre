@@ -3,7 +3,7 @@
 
 session_start();//inicia sesion
 
-require_once "conexion.php";//conestamos con la base de datos
+require_once "conexion.php";//conectamos con la base de datos
 
 //Verificacion para ver si el usuario ya inicio sesion
 //isset sirve para verificar si una variable esta definida o no
@@ -17,12 +17,13 @@ $nombre_usuario = $_SESSION["usuario_nombre"];
 $correo_usuario = $_SESSION["usuario_correo"];
 $contrasena_usuario = $_SESSION["usuario_contrasena"];
 
-$consulta = $conn->query(
+$consulta = $conn->query(//Generamos consulta
     "SELECT ID, Nombre, correo, contrasena_hash
      FROM usuario
      ORDER BY ID DESC"
 );
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,14 +54,17 @@ $consulta = $conn->query(
 
 <?php 
 
-if ($consulta && $consulta->num_rows > 0): ?>
+if ($consulta && $consulta->num_rows > 0): ?> <!--Condición que evalúa si la consulta fue exitosa y trajo al menos una fila-->
+
   <table border="1" cellpadding="6" class = "tabla">
-    <tr>
+    <tr><!--Crea una fila en la tabla-->
+      <!--Columnas-->
       <th>ID</th>
       <th>Nombre</th>
       <th>Correo</th>
       <th>Contraseña (hash)</th>
     </tr>
+    
     <?php while ($fila = $consulta->fetch_assoc()): ?>
       <tr>
         <td><?= (int)$fila["ID"] ?></td>
@@ -68,7 +72,7 @@ if ($consulta && $consulta->num_rows > 0): ?>
         <td><?= htmlspecialchars($fila["correo"]) ?></td>
         <td><?= htmlspecialchars($fila["contrasena_hash"]) ?></td>
         <td>
-          <a href="editar.php?id=<?= (int)$fila['ID'] ?>">Editar</a> |
+          <a href="editar.php?id=<?= (int)$fila['ID'] ?>">Editar</a> 
           <a href="eliminar.php?id=<?= (int)$fila['ID'] ?>"
              onclick="return confirm('¿Seguro de eliminar?');">Eliminar</a>
         </td>

@@ -8,32 +8,32 @@
         $id = (int)$_GET["id"];
   }
 
-// 2) Obtener datos actuales del usuario desde la base de datos
-$usuario = null;//Inicializamos la variable usuario
-$sql_sel = "SELECT ID, Nombre, correo FROM usuario WHERE ID = ?";
+  //  Obtener datos actuales del usuario desde la base de datos
+  $usuario = null;
+  $sql_sel = "SELECT ID, Nombre, correo FROM usuario WHERE ID = ?";
    
 $sentencia_sel = $conn->prepare($sql_sel);//1- Prepara la sentencia para mayor seguridad
 
    if (!$sentencia_sel) 
   { die("Error al preparar la consulta: " . $conn->error); }
 
-  // 2- Conectar el valor del "?" con la variable que ingreso el usuario
-$sentencia_sel->bind_param("i", $id);/* El bind_param nos ayuda para conectar el valor de la consulta que tiene "?" 
-con la variable que ingresa el usuario, asi diciendole a php que va a recibir en ese "?" un valor entero = "i" el cual lo contendra la variable
-$id */
+      // 2- Conectar el valor del "?" con la variable que ingreso el usuario
+    $sentencia_sel->bind_param("i", $id);
 
-//3- Ejecutar la consulta (envia datos y genera la consulta)
-$sentencia_sel->execute();
+    //3- Ejecutar la consulta (envia datos y genera la consulta)
+    $sentencia_sel->execute();
 
-$resultado_sel = $sentencia_sel->get_result();//4- Los resultados de la consulta se guardan en esta variable
-if ($resultado_sel && $resultado_sel->num_rows === 1) {//5- Verifica que haiga llegado un resultado de la consulta con el ID que el usuario puso
-    $usuario = $resultado_sel->fetch_assoc();//6- fetch_assoc() obtiene una fila de resultados como un array asociativo para poder acceder a los datos
-} else {
-    die("Usuario no encontrado.");
-}
-$sentencia_sel->close();//Cierra la sentencia despues de usarla
+    $resultado_sel = $sentencia_sel->get_result();//4- Los resultados de la consulta se guardan en esta variable
 
-/* 3) Procesar envío de formulario (POST) */
+    if ($resultado_sel && $resultado_sel->num_rows === 1) {//5- Verifica que solo llegue un resultado de la consulta con el ID que el usuario puso
+
+        $usuario = $resultado_sel->fetch_assoc();//6- fetch_assoc() obtiene una fila de resultados como array asociativo para poder acceder a los datos
+    } else {
+        die("Usuario no encontrado.");
+    }
+    $sentencia_sel->close();//Cierra la sentencia despues de usarla
+
+// Procesar envío de formulario (POST)
 $mensaje = "";
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $nombre            = trim($_POST["nombre"] ?? "");
@@ -47,9 +47,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $mensaje = "El correo no es válido.";
     } else {//else por si el correo si es valido
 
-        //ESTE IF ES PARA MOSTRAR RESULTADO SI ES QUE EL USUARIO DECIDE CAMBIAR SU CONTRASEÑA O NO
+        //ESTE IF ES PARA MOSTRAR RESULTADO SI ES QUE EL USUARIO DECIDE CAMBIAR SU CONTRASEÑA
         if ($contrasena_nueva !== "") {
-            $contrasena_hash = $contrasena_nueva;
+            $contrasena_hash =  password_hash($contrasena_nueva, PASSWORD_DEFAULT);
             $sql_up = "UPDATE usuario
                        SET Nombre = ?, correo = ?, contrasena_hash = ?
                        WHERE ID = ?";
@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 }
                 $sentencia_up->close();
             }
-        } else {//Y ESTE ES PARA SI EL USUARIO NO QUIERE CAMBIAR SU CONTRASEÑA
+        } else {//Y ESTE ES PARA SI EL USUARIO NO CAMBIA CAMBIAR SU CONTRASEÑA
             $sql_up = "UPDATE usuario
                        SET Nombre = ?, correo = ?
                        WHERE ID = ?";
@@ -112,6 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       <div class="encabezado">
         <h1>Editar usuario</h1>
 </div>
+
   <?php if ($mensaje !== ""): ?>
     <p class="mensaje"><?= htmlspecialchars($mensaje) ?></p>
   <?php endif; ?>
@@ -119,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   <form method="post">
     <label for="nombre">Nombre</label>
     <input id="nombre" name="nombre" type="text" required maxlength="100"
-           value="<?= htmlspecialchars($usuario['Nombre']) ?>">
+           value="<?= htmlspecialchars($usuario['Nombre']) ?>"> <!--esta parte agrega el valor actual del nombre del usuario-->
 
     <label for="correo">Correo</label>
     <input id="correo" name="correo" type="email" required maxlength="120"

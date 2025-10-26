@@ -5,5 +5,5 @@ $dbname = 'usuarios';
 $username = 'evelyn';
 $password = '1234';
 
-// Crear conexión
-$conn = new mysqli($host, $username, $password, $dbname);//creas la conexion a la base de datos
+// Crear conexión a la base de datos
+$conn = new mysqli($host, $username, $password, $dbname);

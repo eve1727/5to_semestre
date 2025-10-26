@@ -1,14 +1,7 @@
 
 <?php
 
-// Configuración de la base de datos
-$host = 'localhost';
-$dbname = 'usuarios';
-$username = 'evelyn';
-$password = '1234';
-
-// Crear conexión
-$conn = new mysqli($host, $username, $password, $dbname);//creas la conexion a la base de datos
+require_once "conexion.php"; //Conectas a la base de datos
 
 $mensaje = '';
 
@@ -18,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $correo = $_POST['correo'];
     $contrasena = $_POST['contrasena'];
 
-    $sql = "INSERT INTO usuario (Nombre, correo, contrasena_hash) VALUES (?, ?, ?)"; // Creas una variable que insertara datos 
+    $sql = "INSERT INTO usuario (Nombre, correo, contrasena_hash) VALUES (?, ?, ?)"; // Creas una consulta que insertara datos 
     //en la base de datos con valores desconocidos ya que estos seran los que inserte el usuario
 
     $stmt = $conn->prepare($sql); // Prepara la sentencia y agrega seguridad 
@@ -28,13 +21,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // basicamente esta linea conecta los valores que pone el usuario (bind_param)con los de la base de datos
-    //Las tres 's' indica que los valores que recibira la base de datos son cadenas de caracteres
     $stmt->bind_param("sss", $nombre, $correo, $contrasena); 
 
-    //Execute es como hacer una revision de si todo se logro, primero prepararas el terreno con 'prepare'
-//despues le das los valores a ese terreno con 'bind_param' y ya por ultimo 
+    
 //con exucute mandas un mensaje si es que todo se logro
-
 if ($stmt->execute()) {
     echo "<h2>Se registro correctamente</h2>";
 } else {

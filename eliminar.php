@@ -17,13 +17,13 @@ $sentencia_sel = $conn->prepare($sql_sel);
 //If para ver si la consulta fallo
 if (!$sentencia_sel) { 
     die("Error al preparar la consulta: " . $conn->error); 
-}
+}else{
    //Conectas los valores de la base de datos a una variable local
    $sentencia_sel->bind_param("i", $id);
    $sentencia_sel->execute();//Se hace la consulta
    $resultado = $sentencia_sel->get_result();//obtenemos el resultado de la consulta
-
-if (!$resultado || $resultado->num_rows !== 1) {//Verifica la consulta solo traiga una fila (porque solo debe de ser de un usario)
+}
+if (!$resultado || $resultado->num_rows !== 1) {//Verifica la consulta solo traiga una fila
     die("Usuario no encontrado.");
 }
 
@@ -31,10 +31,10 @@ $sentencia_sel->close();//Cerramos la consulta
 
 
 // ESTA SEGUNDA PARTE ES PARA ELIMINAR AL USUARIO DEL QUE RECUPERAMOS SU ID
-// Ejecutar eliminación 
-$sql_del = "DELETE FROM usuario WHERE ID = ?";//Generamos consulta para eliminar al usuario que elijimos
+
+$sql_del = "DELETE FROM usuario WHERE ID = ?";//Generamos consulta para eliminar al usuario que escogimos
 $sentencia_del = $conn->prepare($sql_del);//Preparamos la consulta
-if (!$sentencia_del){//Por hay un error en borrarlo
+if (!$sentencia_del){//Por si hay un error mostrarlo
         die("Error al preparar la eliminación: " . $conn->error); 
     }
 $sentencia_del->bind_param("i", $id);//Conectamos el valor de base de datos con variable local
