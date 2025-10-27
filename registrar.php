@@ -11,6 +11,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $correo = $_POST['correo'];
     $contrasena = $_POST['contrasena'];
 
+    if ($nombre === "" || $correo === "" || $contrasena === "") {
+      $mensaje = "Completa todos los campos.";
+  } elseif (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+      $mensaje = "El correo no es válido.";
+  } else {
+
+    $contrasena_hash = password_hash($contrasena, PASSWORD_DEFAULT); // Encripta la contraseña para mayor seguridad
+    
     $sql = "INSERT INTO usuario (Nombre, correo, contrasena_hash) VALUES (?, ?, ?)"; // Creas una consulta que insertara datos 
     //en la base de datos con valores desconocidos ya que estos seran los que inserte el usuario
 
@@ -31,7 +39,7 @@ if ($stmt->execute()) {
     echo "Error al intentar registrarse" . $stmt->error;
 }
 }
-    ?>
+   }   ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>

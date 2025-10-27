@@ -12,7 +12,7 @@
   $usuario = null;
   $sql_sel = "SELECT ID, Nombre, correo FROM usuario WHERE ID = ?";
    
-$sentencia_sel = $conn->prepare($sql_sel);//1- Prepara la sentencia para mayor seguridad
+  $sentencia_sel = $conn->prepare($sql_sel);//1- Prepara la sentencia para mayor seguridad
 
    if (!$sentencia_sel) 
   { die("Error al preparar la consulta: " . $conn->error); }
