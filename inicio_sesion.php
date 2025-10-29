@@ -31,8 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                  //fetch_assoc() obtiene una fila de resultados como un array asociativo para poder acceder a los datos
                               
 
-                            if ($contrasena == $usuario["contrasena_hash"]) {
-                              $_SESSION["usuario_id"]     = $usuario["ID"];
+                            if ($contrasena == $usuario["contrasena_hash"]) {//Verifica que la contraseña sea correcta
+                              $_SESSION["usuario_id"]     = $usuario["ID"];//Guarda los datos del usuario en variables que podemos usar en los archivos
                               $_SESSION["usuario_nombre"] = $usuario["Nombre"];
                               $_SESSION["usuario_correo"] = $usuario["correo"];
                               $_SESSION["usuario_contrasena"] = $usuario["contrasena_hash"];
@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                               $mensaje = "No existe una cuenta con ese correo.";
                               }
 
-                              $sentencia->close();
+                              $sentencia->close();//Cierra la sentencia
                             } else {
                             $mensaje = "Error al preparar la consulta: " . $conn->error;
                             }
@@ -108,10 +108,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </body>
 
 
-<footer>
-  <div class="foot">
-  <div id="seccion2">
-    <div id="seccion1">
+<footer><!--Agregamos nuestro footer-->
+  <div class="foot"><<!--Contenedor del footer-->
+   <div id="seccion2"><!--Contenedor de las secciones del footer-->
+    <div id="seccion1"><!--Contenedor de la primera seccion-->
        <h2>MyEmotions</h2>
        <p>Creado para poder acompañarte día a día <br>y tener un registro de tus emociones</p>
     </div>

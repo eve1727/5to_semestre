@@ -14,7 +14,7 @@
 <body>
 
 <header id ="inicio">
-<p>
+<p><!--Partes a las que el usuario puede ir-->
         <a href="registrar.php">Registrarse</a>
         <a href="inicio_sesion.php">Iniciar sesión</a>
         <a href="privado.php">Privado</a>
@@ -35,6 +35,7 @@
    
       <h2 id="QueEmocion">¿Cómo te sientes ahora?</h2>
 
+      <p id="proceso">(Edit: En proceso)</p>
          <div id=contenedor2><!--Contenedor de las 5 primeras emociones-->
 
         <!-- Opción Feliz -->
@@ -154,16 +155,16 @@
      <p>anonimo.</p>
    </div>
 
-</div>
+</div><!--Fin contenedor de la frase del dia-->
 
 </div><!--Fin contenedor de  las dos partes-->
 
 </body>
 
 <footer>
-  <div class="foot">
-  <div id="seccion2">
-    <div id="seccion1">
+  <div class="foot"><!--Contenedor del footer-->
+  <div id="seccion2"><!--Contenedor de las secciones del footer-->
+    <div id="seccion1"><!--Contenedor de la primera seccion-->
        <h2>MyEmotions</h2>
        <p>Creado para poder acompañarte día a día <br>y tener un registro de tus emociones</p>
     </div>

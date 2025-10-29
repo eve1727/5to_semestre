@@ -38,7 +38,7 @@ $consulta = $conn->query(//Generamos consulta
 <h1>Zona privada</h1>
 </div>
 <p>Bienvenid@, <strong><?= htmlspecialchars($correo_usuario) ?></strong>
-   (<?= htmlspecialchars($contrasena_usuario) ?>)</p>
+   (<?= htmlspecialchars($contrasena_usuario) ?>)</p><!--Mostramos el correo y la contraseña del usuario-->
    <p>Este es un espacio creado para el administrador de este sitio web</p>
 
 
@@ -54,7 +54,7 @@ $consulta = $conn->query(//Generamos consulta
 
 <?php 
 
-if ($consulta && $consulta->num_rows > 0): ?> <!--Condición que evalúa si la consulta fue exitosa y trajo al menos una fila-->
+if ($consulta && $consulta->num_rows > 0): ?> <!--Condición que ve si la consulta si funciono y trajo al menos una fila-->
 
   <table border="1" cellpadding="6" class = "tabla">
     <tr><!--Crea una fila en la tabla-->
@@ -66,8 +66,8 @@ if ($consulta && $consulta->num_rows > 0): ?> <!--Condición que evalúa si la c
     </tr>
     
     <?php while ($fila = $consulta->fetch_assoc()): ?>
-      <tr>
-        <td><?= (int)$fila["ID"] ?></td>
+      <tr><!--Otra fila en la tabla-->
+        <td><?= (int)$fila["ID"] ?></td><!--Muestra el ID del usuario-->
         <td><?= htmlspecialchars($fila["Nombre"]) ?></td>
         <td><?= htmlspecialchars($fila["correo"]) ?></td>
         <td><?= htmlspecialchars($fila["contrasena_hash"]) ?></td>
@@ -77,11 +77,11 @@ if ($consulta && $consulta->num_rows > 0): ?> <!--Condición que evalúa si la c
              onclick="return confirm('¿Seguro de eliminar?');">Eliminar</a>
         </td>
       </tr>
-    <?php endwhile; ?>
+    <?php endwhile; ?><!--Termina el php del ciclo while-->
   </table>
-<?php else: ?>
+<?php else: ?><!--Sirve por si no hay usuarios registrados-->
   <p>No hay usuarios registrados.</p>
-<?php endif; ?>
+<?php endif; ?><!--Termina el php del if-->
 
 </body>
 

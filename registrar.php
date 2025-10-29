@@ -13,27 +13,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($nombre === "" || $correo === "" || $contrasena === "") {
       $mensaje = "Completa todos los campos.";
-  } elseif (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+  } elseif (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {//Filtro para validar el email, estructura: filter_var(valor, filtro) 
       $mensaje = "El correo no es válido.";
   } else {
 
-    $contrasena_hash = password_hash($contrasena, PASSWORD_DEFAULT); // Encripta la contraseña para mayor seguridad
+    $contrasena_hash = password_hash($contrasena, PASSWORD_DEFAULT); // Cambias la visualizacion de la contraseña del usuario en la tabla
     
-    $sql = "INSERT INTO usuario (Nombre, correo, contrasena_hash) VALUES (?, ?, ?)"; // Creas una consulta que insertara datos 
-    //en la base de datos con valores desconocidos ya que estos seran los que inserte el usuario
+    $sql = "INSERT INTO usuario (Nombre, correo, contrasena_hash) VALUES (?, ?, ?)"; // Creas una consulta 
+    
 
-    $stmt = $conn->prepare($sql); // Prepara la sentencia y agrega seguridad 
+    $prepare = $conn->prepare($sql); // Preparamos la consulta
 
-    if ($stmt === false) {
-        die("Error al preparar la sentencia: " . $conn->error);
+    if ($prepare === false) {
+        die("Error al preparar la sentencia: " . $conn->error);//Por si falla la consulta
     }
 
-    // basicamente esta linea conecta los valores que pone el usuario (bind_param)con los de la base de datos
-    $stmt->bind_param("sss", $nombre, $correo, $contrasena); 
+    // conectamos los valores que pone el usuario con los de la base de datos
+    $prepare->bind_param("sss", $nombre, $correo, $contrasena); 
 
     
-//con exucute mandas un mensaje si es que todo se logro
-if ($stmt->execute()) {
+// mandas un mensaje si si se registro
+if ($prepare->execute()) {
     echo "<h2>Se registro correctamente</h2>";
 } else {
     echo "Error al intentar registrarse" . $stmt->error;
@@ -64,7 +64,7 @@ if ($stmt->execute()) {
 
       <!-- Formulario -->
       <form method="post" action="registrar.php" novalidate>
-        <div class="campo">
+        <div class="campo"><!--estilo de los campos del formulario-->
           <label for="nombre">Nombre</label>
           <input id="nombre" name="nombre" type="text" required maxlength="100" autocomplete="name">
         </div>
@@ -87,7 +87,7 @@ if ($stmt->execute()) {
 
       <hr class="hr">
 
-      <!-- Navegación -->
+      <!--Partes para que el usuario pueda navegar-->
       <p class="nav">
         <a href="registrar.php">Registrar</a>
         <a href="inicio_sesion.php">Iniciar sesión</a>
@@ -95,12 +95,12 @@ if ($stmt->execute()) {
         <a href="salir.php">Salir</a>
         <a href="index.php">Inicio</a>
       </p>
-    </div>
+    </div><!--fin del div de la clase tarjeta-->
   </div>
 </body>
-<footer>
+<footer><!--Agregamos nuestro footer-->
   <div class="foot">
-  <div id="seccion2">
+  <div id="seccion2"><<!--Contenedor de las secciones del footer-->
     <div id="seccion1">
        <h2>MyEmotions</h2>
        <p>Creado para poder acompañarte día a día <br>y tener un registro de tus emociones</p>

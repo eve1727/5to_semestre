@@ -1,7 +1,7 @@
 <?php
   require_once "conexion.php";
   
-  // 1) Validar y obtener ID de usuario desde GET
+  // Validar y obtener ID de usuario
   if (!isset($_GET["id"]) || !ctype_digit($_GET["id"])) {
       die("ID de usuario inválido.");
   }else{
@@ -12,10 +12,10 @@
   $usuario = null;
   $sql_sel = "SELECT ID, Nombre, correo FROM usuario WHERE ID = ?";
    
-  $sentencia_sel = $conn->prepare($sql_sel);//1- Prepara la sentencia para mayor seguridad
+  $sentencia_sel = $conn->prepare($sql_sel);
 
    if (!$sentencia_sel) 
-  { die("Error al preparar la consulta: " . $conn->error); }
+  { die("Error al preparar la consulta: " . $conn->error); }//Por si falla la consulta
 
       // 2- Conectar el valor del "?" con la variable que ingreso el usuario
     $sentencia_sel->bind_param("i", $id);
@@ -43,45 +43,46 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if ($nombre === "" || $correo === "") {
         $mensaje = "Nombre y correo son obligatorios.";
-    } elseif (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {//Filtro para validar el email, estructura: filter_var(valor, filtro)
+     } elseif (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {//Filtro para validar el email, estructura: filter_var(valor, filtro)
         $mensaje = "El correo no es válido.";
-    } else {//else por si el correo si es valido
+       } else {//else por si el correo si es valido
 
         //ESTE IF ES PARA MOSTRAR RESULTADO SI ES QUE EL USUARIO DECIDE CAMBIAR SU CONTRASEÑA
         if ($contrasena_nueva !== "") {
-            $contrasena_hash =  password_hash($contrasena_nueva, PASSWORD_DEFAULT);
-            $sql_up = "UPDATE usuario
-                       SET Nombre = ?, correo = ?, contrasena_hash = ?
-                       WHERE ID = ?";
-            $sentencia_up = $conn->prepare($sql_up);
-            if (!$sentencia_up) {
+            $contrasena_hash =  password_hash($contrasena_nueva, PASSWORD_DEFAULT);//generamos contraseña segura con la que puso el usuario
+           
+            $sql_up = "UPDATE usuario SET Nombre = ?, correo = ?, contrasena_hash = ? WHERE ID = ?"; //Hacemos consulta
+            $sentencia_up = $conn->prepare($sql_up);//La preparamos
+
+            if (!$sentencia_up) {//Por si falla
                 $mensaje = "Error al preparar actualización: " . $conn->error;
-            } else {
+            } else {//Si no falla se ejecuta 
                 $sentencia_up->bind_param("sssi", $nombre, $correo, $contrasena_hash, $id);
                 if ($sentencia_up->execute()) {
                     $mensaje = "Usuario actualizado (incluye nueva contraseña).";
                     $usuario["Nombre"] = $nombre;
                     $usuario["correo"] = $correo;
-                } else {
-                    if ($conn->errno === 1062) {
-                        $mensaje = "El correo ya está registrado en otro usuario.";
-                    } else {
-                        $mensaje = "Error al actualizar: " . $conn->error;
-                    }
-                }
-                $sentencia_up->close();
-            }
-        } else {//Y ESTE ES PARA SI EL USUARIO NO CAMBIA CAMBIAR SU CONTRASEÑA
+                      } else {
+                              if ($conn->errno === 1062) {//Para checar si el correo ya existe
+                                  $mensaje = "El correo ya está registrado en otro usuario.";
+                              } else {
+                                  $mensaje = "Error al actualizar: " . $conn->error;
+                              }
+                          }
+                          $sentencia_up->close();//Cerramos la consulta
+                      }
+
+             } else {//Y ESTE ES PARA SI EL USUARIO NO CAMBIA CAMBIAR SU CONTRASEÑA
             $sql_up = "UPDATE usuario
                        SET Nombre = ?, correo = ?
-                       WHERE ID = ?";
-            $sentencia_up = $conn->prepare($sql_up);
+                       WHERE ID = ?";//Hacemos consulta
+            $sentencia_up = $conn->prepare($sql_up);//preparamos
             if (!$sentencia_up) {
                 $mensaje = "Error al preparar actualización: " . $conn->error;
             } else {
                 $sentencia_up->bind_param("ssi", $nombre, $correo, $id);
 
-                if ($conn->errno === 1062) {
+                if ($conn->errno === 1062) {//Por si el correo ya existe
                     $mensaje = "El correo ya está registrado en otro usuario.";
                 }else if ($sentencia_up->execute()) {
                     $mensaje = "Usuario actualizado.";
@@ -107,13 +108,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   <link rel="stylesheet" type="text/css" href="estilos.css">
 </head>
 <body>
-<div class="contenedor">
-    <div class="tarjeta">
+<div class="contenedor"><!--Contenedor principal-->
+    <div class="tarjeta"><!--Cuadro con contenido-->
       <div class="encabezado">
         <h1>Editar usuario</h1>
 </div>
 
-  <?php if ($mensaje !== ""): ?>
+  <?php if ($mensaje !== ""): ?><!--Por si se muestra algun mensaje-->
     <p class="mensaje"><?= htmlspecialchars($mensaje) ?></p>
   <?php endif; ?>
 
@@ -137,8 +138,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   </div>
 </body>
 <footer>
-  <div class="foot">
-  <div id="seccion2">
+  <div class="foot"><!--Contenedor del footer-->
+  <div id="seccion2"><!--Contenedor de las secciones del footer-->
     <div id="seccion1">
        <h2>MyEmotions</h2>
        <p>Creado para poder acompañarte día a día <br>y tener un registro de tus emociones</p>
